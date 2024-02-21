@@ -6,19 +6,23 @@ using UnityEngine;
 public class PlayerCamera : MonoBehaviour
 {
     public float RotationSensitivty;
-    public Vector3 Offset;
-    void Awake()
+    public Vector3 CameraOffset;
+    public float FollowDistance;
+    private void Awake()
+    {
+        GameManager.Instance.SetActiveCamera(this);
+    }
+    void OnEnable()
     {
         _findPlayer();
-        GameManager.Instance.SetActiveCamera(this);
         StartTracking();
     }
 
     public void StartTracking()
     {
         transform.LookAt(m_currentTarget);
-        transform.position = m_currentTarget.position + Offset;
-        transform.SetParent(m_currentTarget);
+        transform.position = m_currentTarget.position + CameraOffset;
+        _getCamVector();
         m_tracking = true;
     }
 
@@ -31,8 +35,22 @@ public class PlayerCamera : MonoBehaviour
     {
         if (m_tracking)
         {
+            //cam position
+            transform.position = m_currentTarget.position - m_lastCamVector;
+            //cam angle
+            var mouseDelta = Input.GetAxis("Mouse X") * Time.deltaTime;
+            transform.RotateAround(m_currentTarget.transform.position, Vector3.up, mouseDelta * RotationSensitivty);
+            _getCamVector();
             transform.LookAt(m_currentTarget);
         }
+    }
+
+    void _getCamVector()
+    {
+        var vec = m_currentTarget.position - transform.position;
+        vec.Normalize();
+        vec *= FollowDistance;
+        m_lastCamVector = vec;
     }
 
     private void _findPlayer()
@@ -43,4 +61,6 @@ public class PlayerCamera : MonoBehaviour
     //members
     Transform m_currentTarget;
     bool m_tracking = false;
+    //input memory
+    Vector3 m_lastCamVector; 
 }

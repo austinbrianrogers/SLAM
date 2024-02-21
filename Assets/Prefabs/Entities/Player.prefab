@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7396318099291932003}
   - component: {fileID: 2497329221166401346}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4330004524288753470}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,9 +97,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3759626623482153985}
   - component: {fileID: 422715562882381300}
-  - component: {fileID: 4464168840189835619}
-  - component: {fileID: 1953207256033113252}
-  m_Layer: 0
+  - component: {fileID: 3252933517139347131}
+  - component: {fileID: 3914206194803649645}
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,10 +147,10 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &4464168840189835619
+--- !u!114 &3252933517139347131
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -159,10 +159,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5419573140488937773}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2507d347826c43a468a382a3ed9fd088, type: 3}
+  m_Script: {fileID: 11500000, guid: 24a68f89159e018429e1ce1fa727fdcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1953207256033113252
+  RotationSensitivty: 0
+  CameraOffset: {x: 0, y: 10, z: 20}
+  FollowDistance: 20
+--- !u!114 &3914206194803649645
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -171,9 +174,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5419573140488937773}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be3eb68fa1e6cd146a62d74eb0e9e353, type: 3}
+  m_Script: {fileID: 11500000, guid: eefa506c56b189b4989eb508ed31818b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Force: 1100
+  Collider: {fileID: 0}
 --- !u!1 &7360313936287970315
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,7 +191,7 @@ GameObject:
   - component: {fileID: 7460810961252330908}
   - component: {fileID: 5040951074277672238}
   - component: {fileID: 8560559328374313426}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}

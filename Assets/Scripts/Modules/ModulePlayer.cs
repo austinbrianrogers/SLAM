@@ -33,8 +33,38 @@ public class ModulePlayer : Module
 
     public override void InternalUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.W))
-            m_playerRigidbody.AddRelativeForce(Vector3.forward * m_forwardForce);
+        var camForward = GameManager.Instance.Camera().transform.forward;
+        camForward.Normalize();
+        var forceDirection = new Vector3(camForward.x, 0f, camForward.z);
+        Debug.Log("airborn: " + m_airborn.ToString());
+        if (!m_airborn)
+        {
+            if (Input.GetKey(KeyCode.W))
+            {
+                m_playerRigidbody.AddForce(forceDirection * m_forwardForce);
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                m_playerRigidbody.AddForce(-forceDirection * m_forwardForce);
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                m_playerRigidbody.AddForce(-Vector3.Cross(forceDirection, Vector3.up * m_forwardForce));
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                m_playerRigidbody.AddForce(Vector3.Cross(forceDirection, Vector3.up * m_forwardForce));
+            }
+        } 
+        else
+        {
+            m_playerRigidbody.AddForce(Vector3.down * m_forwardForce);
+        }
+    }
+
+    public void SetControlsAirborn(bool enabled)
+    {
+        m_airborn = enabled;
     }
 
     public void SetForwardForce(float force)
@@ -58,5 +88,7 @@ public class ModulePlayer : Module
     Rigidbody m_playerRigidbody;
     //statistics
     float m_forwardForce = 5f;
+    //schema
+    bool m_airborn = false;
 }
 

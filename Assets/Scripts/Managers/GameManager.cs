@@ -40,13 +40,27 @@ public class GameManager : Singleton<GameManager>
         m_playerCam = camera;
     }
 
+    public PlayerCamera Camera()
+    {
+        return m_playerCam;
+    }
+
     public ModulePlayer GetPlayer()
     {
         m_gameModules.TryGetValue(Strings.MODULE_PLAYER, out Module modPlayer);
         return (modPlayer == null) ? null : modPlayer as ModulePlayer;
         
     }
+    private void Awake()
+    {
+        Init();
+    }
 
+    private void Init()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
     private void Update()
     {
         foreach(var pair in m_gameModules)
