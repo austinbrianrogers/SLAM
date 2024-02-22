@@ -26,20 +26,14 @@ public class ModulePlayer : Module
         return m_playerObject;
     }
 
-    public override void Delete()
-    {
-        _onDelete();
-    }
-
     public override void InternalUpdate()
     {
         var camForward = GameManager.Instance.Camera().transform.forward;
         camForward.Normalize();
         var forceDirection = new Vector3(camForward.x, 0f, camForward.z);
-        Debug.Log("airborn: " + m_airborn.ToString());
         if (!m_airborn)
         {
-            if (Input.GetKey(KeyCode.W))
+             if (Input.GetKey(KeyCode.W))
             {
                 m_playerRigidbody.AddForce(forceDirection * m_forwardForce);
             }
@@ -55,11 +49,15 @@ public class ModulePlayer : Module
             {
                 m_playerRigidbody.AddForce(Vector3.Cross(forceDirection, Vector3.up * m_forwardForce));
             }
-        } 
-        else
-        {
-            m_playerRigidbody.AddForce(Vector3.down * m_forwardForce);
         }
+            
+        m_playerRigidbody.AddForce(Vector3.down * m_forwardForce); //enhanced gravity to keep the ball moving on slopes
+        
+    }
+
+    public bool IsAirborn()
+    {
+        return m_airborn;
     }
 
     public void SetControlsAirborn(bool enabled)

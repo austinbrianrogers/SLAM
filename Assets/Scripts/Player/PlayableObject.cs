@@ -35,6 +35,13 @@ public class PlayableObject : MonoBehaviour
         m_player.SetControlsAirborn(collision.gameObject.layer == Strings.LAYER_GROUND);
     }
 
+    //this is really just to double check when we're airborn that we are not colliding with the ground to avoid edge cases.
+    void OnCollisionStay(Collision collision)
+    {
+        if (m_player.IsAirborn())
+            m_player.SetControlsAirborn(!(collision.gameObject.layer == Strings.LAYER_GROUND));
+    }
+
     //members
     //gameplay
     ModulePlayer m_player = null;

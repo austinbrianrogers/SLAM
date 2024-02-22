@@ -47,16 +47,22 @@ public class GameManager : Singleton<GameManager>
 
     public ModulePlayer GetPlayer()
     {
-        m_gameModules.TryGetValue(Strings.MODULE_PLAYER, out Module modPlayer);
-        return (modPlayer == null) ? null : modPlayer as ModulePlayer;
-        
-    }
-    private void Awake()
-    {
-        Init();
+        m_gameModules.TryGetValue(Strings.MODULE_PLAYER, out Module modBar);
+        return (modBar == null) ? null : modBar as ModulePlayer;  
     }
 
-    private void Init()
+    public ModuleAbilityBar GetAbilityBar()
+    {
+        m_gameModules.TryGetValue(Strings.MODULE_PLAYER, out Module modPlayer);
+        return (modPlayer == null) ? null : modPlayer as ModuleAbilityBar;
+    }
+
+    private void Awake()
+    {
+        _init();
+    }
+
+    private void _init()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
